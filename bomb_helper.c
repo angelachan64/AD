@@ -8,11 +8,18 @@
 
 #include "bomb_helper.h"
 
+int create_random() {
+  int dev_des = open("/dev/random", O_RDONLY);
+  int random_num;
+  read(dev_des, &random_num, 4);
+  return abs(random_num);
+}
+
 void draw_bomb() {
   int age = fork();
   if (age) {
     int information;
-    int waiting(&information);
+    int waiting = wait(&information);
   } else {
     execlp("cat", "cat", "asciiart/bomblayout.dat", NULL);
   }
@@ -22,18 +29,21 @@ int verify_input(char* input, module** m) {
   char* okay[5] = {"1", "2", "3", "4", "5"};
   int counter = 0;
   while (counter < 5) {
-    if (!strcmp(okay[counter], input) && !m[counter]->complete){
-      return counter;
-    } else {
-      printf("Module already completed");
-      return -1;
+    if (!strcmp(okay[counter], input)) {
+      if (!m[counter]->complete){
+	return counter;
+      } else {
+	printf("\n\n\nModule has been already completed or is currently unavaiable.\n");
+	return -1;
+      }
     }
+    counter++;
   }
   if (!strcmp(input, "exit")) {
-    printf("Giving up is the same as losing!");
+    printf("\n\n\nGiving up is the same as losing!\n");
     return -2;
   }
-  printf("Bad input, please try again.");
+  printf("\n\n\nBad input, please try again.\n");
   return -1;
 }
 

@@ -21,23 +21,40 @@ int main() {
   int game_over = 0;
   
   /* CREATE a module array */
-  module *a = create_module("./asciiart/wires/w1.dat");
-  module *b = create_module("./asciiart/symbols/s1.dat");
-  //module *c = create_module("./asciiart/symbols/s3.dat");
-  //module *d = create_module("./asciiart/symbols/s4.dat");
-  //module *e = create_module("./asciiart/symbols/s5.dat");
+  char filer[128];
+  sprintf(filer, "asciiart/wires/w%d.dat", create_random() % 3 + 1);
+  //printf("%s\n",filer);
+  module *a = create_module(filer);
+  
+  module *b = create_module("asciiart/memory/m1.dat");
+
+  sprintf(filer, "asciiart/symbols/s%d.dat", create_random() % 5 + 1);
+  //printf("%s\n",filer);
+  module *c = create_module(filer);
+
+  sprintf(filer, "asciiart/keypad/k%d.dat", create_random() % 2 + 1);
+  //printf("%s\n",filer);
+  module *d = create_module(filer);
+
+  sprintf(filer, "asciiart/button/b%d.dat", create_random() % 5 + 1);
+  //printf("%s\n",filer);
+  module *e = create_module(filer);
    
-  module *modules[2] = {a,b};//[5] = {a, b, c, d, e};
+  module *modules[5] = {a, b, c, d, e};
   
   while (!completed_game(modules) && !game_over) { //!game_complete(module array) 
     //Show original Bomb
-    printf("Select a module (1 - 5): ");
+    draw_bomb();
+    printf("Please select a module (1 - 5): ");
     fgets(user_input, sizeof(user_input), stdin);
     *strchr(user_input, '\n') = 0;
 
     mod_number = verify_input(user_input, modules);
-    
+    if (mod_number == -2) {
+      game_over = 1;
+    }
     while (mod_number >= 0){
+
       print_module(modules[mod_number]);
       
       printf("What do you do? ('%s' or 'back'): ", modules[mod_number]->visual_representation[1]);
