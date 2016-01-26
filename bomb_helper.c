@@ -8,6 +8,16 @@
 
 #include "bomb_helper.h"
 
+void draw_bomb() {
+  int age = fork();
+  if (age) {
+    int information;
+    int waiting(&information);
+  } else {
+    execlp("cat", "cat", "asciiart/bomblayout.dat", NULL);
+  }
+}
+
 int verify_input(char* input, module** m) {
   char* okay[5] = {"1", "2", "3", "4", "5"};
   int counter = 0;
