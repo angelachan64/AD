@@ -13,25 +13,35 @@ int main() {
   textcolor(BRIGHT, RED, BLACK);
   printf("This is the Bomb component of Attempting Diffusal.\n");
   textcolor(RESET, WHITE, BLACK);
+
   
   /* CREATE a module array */
   module *a = create_module("./asciiart/symbols/s1.dat");
+  //module *b = create_module("./asciiart/symbols/s2.dat");
+  //module *c = create_module("./asciiart/symbols/s3.dat");
+  //module *d = create_module("./asciiart/symbols/s4.dat");
+  //module *e = create_module("./asciiart/symbols/s5.dat");
+   
+  module *modules[1] = {a};//[5] = {a, b, c, d, e};
+  printf("%d",completed_game(modules));
   
-  while (!completed_module(a)) { //!game_complete(module array) 
-    print_module(a);
+  while (!completed_game(modules)) { //!game_complete(module array) 
+    print_module(modules[0]);
 
     printf("What do you do? ('%s'): ", "TEST");
     char user_input[64];
     fgets(user_input, sizeof(user_input), stdin);
     *strchr(user_input, '\n') = 0;
 
-    if (verify_module(a, user_input)) {
+    if (verify_module(modules[0], user_input)) {
       printf("\e[1;1H\e[2J\n");
       printf("That was correct!\n");
     } else {
       printf("You Lose!\n");
       exit(0);
     }
+
+    
   }
   printf("Congratz! You survived.\n");
   return 0;
