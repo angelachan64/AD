@@ -35,7 +35,7 @@ module* create_module(char* filename) {
 
   m->steps = atoi(lines[0]); 
   m->current_step = 0;
-  m->visual_representation = &temp;
+  m->visual_representation = lines;
   return m;
 }
 
@@ -44,9 +44,34 @@ void print_module(module *m) {
   int counter = 0;
   while (counter < 27) {
     printf("%s\n",m->visual_representation[displacement+counter]);
+    counter++;
   }
 }
 
-int verify_module(module *m) {
-  return 0;
+int verify_module(module *m, char *input) {
+  if ( !strcmp(m->visual_representation[28 + m->current_step * 28], input) ) {
+    m->current_step++;
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int completed_module(module *m) {
+  if (m->current_step == m->steps) {
+    m->complete = 1;
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int completed_game(module **m) {
+  int counter = 0;
+  while(m[counter]) {
+    if (!completed_module(m[counter])) {
+      return 0;
+    }
+  }
+  return 1;
 }

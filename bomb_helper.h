@@ -12,6 +12,9 @@ module *create_module(char* filename);
 
 void print_module(module *m);
 
-int verify_module(module *m);
+int verify_module(module *m, char *input);
 
+int completed_module(module *m);
+
+int completed_game(module **m);
 #endif 
