@@ -27,12 +27,12 @@ int main() {
 
     if (verify_module(a, user_input)) {
       printf("\e[1;1H\e[2J\n");
-      printf("That was correct!");
+      printf("That was correct!\n");
     } else {
-      printf("You Lose!");
+      printf("You Lose!\n");
       exit(0);
     }
   }
-  printf("Congratz! You survived.");
+  printf("Congratz! You survived.\n");
   return 0;
 }
