@@ -40,7 +40,7 @@ module* create_module(char* filename) {
 }
 
 void print_module(module *m) {
-  int displacement = 1 + m->current_step * 28;
+  int displacement = 2 + m->current_step * 28;
   int counter = 0;
   while (counter < 27) {
     printf("%s\n",m->visual_representation[displacement+counter]);
@@ -49,7 +49,7 @@ void print_module(module *m) {
 }
 
 int verify_module(module *m, char *input) {
-  if ( !strcmp(m->visual_representation[28 + m->current_step * 28], input) ) {
+  if ( !strcmp(m->visual_representation[2 + 27 + m->current_step * 28], input) ) {
     m->current_step++;
     return 1;
   } else {
