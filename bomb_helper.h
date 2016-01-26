@@ -8,6 +8,8 @@ typedef struct module {
   char** visual_representation;
 } module;
 
+int verify_input(char* input, module** m);
+
 module *create_module(char* filename);
 
 void print_module(module *m);

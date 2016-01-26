@@ -8,6 +8,25 @@
 
 #include "bomb_helper.h"
 
+int verify_input(char* input, module** m) {
+  char* okay[5] = {"1", "2", "3", "4", "5"};
+  int counter = 0;
+  while (counter < 5) {
+    if (!strcmp(okay[counter], input) && !m[counter]->complete){
+      return counter;
+    } else {
+      printf("Module already completed");
+      return -1;
+    }
+  }
+  if (!strcmp(input, "exit")) {
+    printf("Giving up is the same as losing!");
+    return -2;
+  }
+  printf("Bad input, please try again.");
+  return -1;
+}
+
 module* create_module(char* filename) {
   module *m = (module *)malloc(sizeof(module));
   
@@ -68,10 +87,11 @@ int completed_module(module *m) {
 
 int completed_game(module **m) {
   int counter = 0;
-  while(m[counter]) {
+  while(counter < 2) {
     if (!completed_module(m[counter])) {
       return 0;
     }
+    counter++;
   }
   return 1;
 }
